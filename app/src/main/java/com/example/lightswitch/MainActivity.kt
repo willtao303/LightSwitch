@@ -1,5 +1,6 @@
 package com.example.lightswitch
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,17 +16,19 @@ class MainActivity : AppCompatActivity() {
         var lightOn = false
 
         val camManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        var camID = -1
+        var camID = ""
 
         try {
             camID = camManager.cameraIdList[0]
+        } catch (e: Exception) {
+
         }
 
         lightToggle.setOnClickListener{
-            if (camID != -1){
+            if (camID != ""){
                 lightOn = !lightOn
                 try {
-                    camMAnager.setTorchMode(camID, lightOn)
+                    camManager.setTorchMode(camID, lightOn)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
